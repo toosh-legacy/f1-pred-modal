@@ -1,55 +1,31 @@
 [project]
 name = "f1pred"
 version = "0.1.0"
-description = "Learning-to-rank prediction of 2026 Formula 1 race results (FastF1 + LightGBM)."
+description = "Predicting 2026 Formula 1 race results (FastF1 + LightGBM)."
 readme = "README.md"
 requires-python = ">=3.12,<3.14"
 license = { text = "MIT" }
 authors = [{ name = "Tushaar Sood" }]
 
 dependencies = [
-    # data ingestion
+    # data
     "fastf1>=3.4",
-    "requests>=2.31",
-    # data handling
     "pandas>=2.2",
     "numpy>=1.26",
     "pyarrow>=15.0",
     # modeling
     "lightgbm>=4.3",
     "scikit-learn>=1.4",
-    # config
-    "pydantic>=2.6",
-    "pydantic-settings>=2.2",
-    "pyyaml>=6.0",
-    # tracking
-    "mlflow>=2.12",
 ]
 
 [project.optional-dependencies]
-app = [
-    "gradio>=4.30",
-    "huggingface_hub>=0.23",
-    # explainability for the demo (pulls numba/llvmlite; kept out of core resolve).
-    "shap>=0.46",
-]
-cloud = [
-    "modal>=0.63",
-    "huggingface_hub>=0.23",
-]
-nlp = [
-    "feedparser>=6.0",
-    "sentence-transformers>=2.7",
-]
 dev = [
+    "jupyterlab>=4.0",
+    "ipykernel>=6.29",
+    "matplotlib>=3.8",
     "pytest>=8.1",
-    "pytest-cov>=5.0",
     "ruff>=0.4",
-    "pre-commit>=3.7",
 ]
-
-[project.scripts]
-f1pred = "f1pred.cli:main"
 
 [build-system]
 requires = ["hatchling"]
@@ -61,18 +37,12 @@ packages = ["src/f1pred"]
 [tool.ruff]
 line-length = 100
 target-version = "py312"
-src = ["src", "tests"]
+src = ["src", "tests", "notebooks"]
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "UP", "B", "SIM", "C4"]
+select = ["E", "F", "I", "UP", "B"]
 ignore = ["E501"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
-markers = [
-    "network: tests that hit external APIs (deselect with -m 'not network')",
-]
-
-[tool.coverage.run]
-source = ["src/f1pred"]
