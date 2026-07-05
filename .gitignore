@@ -216,3 +216,13 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# --- f1pred project ---
+# Regenerated data (keep the docs + hand-curated reference inputs).
+/data/*
+!/data/README.md
+!/data/reference/
+# Trained artifacts and experiment logs.
+/models/
+/mlruns/
+# uv virtual env is already covered by .venv above.
